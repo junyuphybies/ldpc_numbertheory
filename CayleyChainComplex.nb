@@ -1,0 +1,79 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      2717,         71]
+NotebookOptionsPosition[      2353,         56]
+NotebookOutlinePosition[      2764,         73]
+CellTagsIndexPosition[      2721,         70]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{"(*", "  ", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+    "Implementation", " ", "of", " ", "the", " ", "Chain", " ", "complexes", 
+     " ", "from", " ", "paper", " ", "by", " ", "Vidick", " ", "et", " ", 
+     "al", " ", "2022.", " ", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     "The", " ", "chain", " ", "comlexses", " ", "are", " ", "defined", " ", 
+     "via", " ", "the", " ", "quadpartite", " ", "left"}], "-", 
+    RowBox[{"right", " ", "Cayley", " ", "complex"}]}], ",", " ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{
+       "which", " ", "can", " ", "be", " ", "randomly", " ", "generated", " ",
+         "by", " ", "providing", " ", "random", " ", "generators", " ", 
+        "with", " ", "a", " ", "fix", " ", 
+        RowBox[{"group", ".", " ", "I", ".", "e", ".", " ", "Random"}], " ", 
+        "Cayley", " ", "graphs", " ", "are", " ", "expanders", " ", "from", 
+        " ", "Aldous", " ", "conjectures"}], "..."}], " ", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", "Can", " ", "also", " ", 
+      "be", " ", "used", " ", "to", " ", "incorprate", " ", "the", " ", "PK", 
+      " ", "codes", " ", "with", " ", "providing", " ", "explicit", " ", 
+      "cobnstruction", " ", "of", " ", "the", " ", "PSL"}], " ", "&"}], " ", 
+    "PGL", " ", "group", " ", 
+    RowBox[{
+    "operation", ".", " ", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{"Need", ":", " ", 
+      RowBox[{"find", " ", "some", " ", "Tanner", " ", 
+       RowBox[{"codes", ".", " ", "Currently"}], " ", "default", " ", "to", 
+       " ", "be", " ", "random", " ", 
+       RowBox[{"codes", "."}]}]}]}]}]}], " ", "\[IndentingNewLine]", 
+  "*)"}]], "Input",ExpressionUUID->"d51e7fc5-e947-4c1a-b32f-5fec4771f8d8"]
+},
+WindowSize->{1253, 782},
+WindowMargins->{{-1503, Automatic}, {Automatic, 11}},
+FrontEndVersion->"13.1 for Mac OS X ARM (64-bit) \
+(2022\:5e746\:670816\:65e5)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"9e35b297-e553-4add-9f71-99d654fd96b3"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 1791, 34, 241, "Input",ExpressionUUID->"d51e7fc5-e947-4c1a-b32f-5fec4771f8d8"]
+}
+]
+*)
+
