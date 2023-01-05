@@ -1,6 +1,48 @@
 from scipy import sparse
 import numpy as np 
 
+def BinaryRepMat(mat):
+    rows = [int(''.join(map(str, list(row))), 2) for row in mat]
+#     for row in mat:
+#         binary_str = ''.join(map(str, list(row)))
+#         rows.append(int(binary_str, 2))
+        
+    return rows
+
+def gf2_rank(rows):
+    """
+    Find rank of a matrix over GF2.
+
+    The rows of the matrix are given as nonnegative integers, thought
+    of as bit-strings.
+
+    This function modifies the input list. Use gf2_rank(rows.copy())
+    instead of gf2_rank(rows) to avoid modifying rows.
+    """
+    rows = BinaryRepMat(rows)
+    rank = 0
+    while rows:
+        pivot_row = rows.pop()
+        if pivot_row:
+            rank += 1
+            lsb = pivot_row & -pivot_row
+            for index, row in enumerate(rows):
+                if row & lsb:
+                    rows[index] = row ^ pivot_row
+    return rank
+
+
+def local_check(m, delta):
+    check = np.random.randint(low=0, high=2, size=(m, delta))
+    flag = 0 
+    while gf2_rank(check) != m or flag < 10000: 
+        check = np.random.randint(low=0, high=2, size=(m, delta))
+        flag = 1
+    return check
+
+
+
+
 
 class BuildqcssCodes: 
     def __init__(self,ma:int, 
@@ -21,10 +63,10 @@ class BuildqcssCodes:
         Build codes for the sparse index given in the matrix form
         (newest)
         '''
-        TGEFhor = np.zeros((self.ma * self.edgedim ,self.facedim ), dtype=int)
-        TGEFver = np.zeros((self.mb * self.edgedim ,self.facedim ), dtype=int)
-        TGVEhor = np.zeros((self.ma * self.mb * self.basedim, self.ma * self.edgedim),dtype=int)
-        TGVEver = np.zeros((self.ma * self.mb * self.basedim, self.mb * self.edgedim),dtype=int)
+        TGEFhor = np.zeros((2 * self.ma * self.edgedim ,self.facedim ), dtype=int)
+        TGEFver = np.zeros((2 * self.mb * self.edgedim ,self.facedim ), dtype=int)
+        TGVEhor = np.zeros((4 * self.ma * self.mb * self.basedim,2 * self.ma * self.edgedim),dtype=int)
+        TGVEver = np.zeros((4 * self.ma * self.mb * self.basedim, 2 * self.mb * self.edgedim),dtype=int)
         for idx in TGEFhor_idx:
             idx = self._reindex(idx)
             # print(idx)
@@ -55,8 +97,8 @@ class BuildqcssCodes:
         Given derived graph code, we build explicit the X, Z parity checks. 
         '''
 
-        TGEF = np.zeros((self.ma * self.edgedim + self.mb * self.edgedim, self.facedim), dtype=int)
-        TGVE = np.zeros((self.ma * self.mb * self.basedim, self.ma * self.edgedim + self.mb * self.edgedim), dtype=int)
+        TGEF = np.zeros((2 * (self.ma * self.edgedim + self.mb * self.edgedim), self.facedim), dtype=int)
+        TGVE = np.zeros((4 * self.ma * self.mb * self.basedim, 2 * (self.ma * self.edgedim + self.mb * self.edgedim)), dtype=int)
         for idx in idTGVE:
             idx = self._reindex(idx)
             TGVE[idx] = 1
@@ -73,7 +115,7 @@ class BuildqcssCodes:
         # T = T.toarray()
         # np.where(T==1)
         # np.where(T>2)
-        print(T[T % 2 ==1])
+        print(f'the number of entry return 1 after mod 2: {print(T[T % 2 ==1])}')
         assert len(T[T % 2 ==1]) == 0 # check if The CSS condition is fulfilled. 
     
     def check_exactseq2(self):
@@ -106,3 +148,14 @@ class BuildqcssCodes:
         for i in index: 
             new_index.append(i -1)
         return tuple(new_index)
+    
+
+
+
+
+# HA = local_check(3, 14)
+# HB = local_check(8, 14)
+# print(HA)
+# print(HB)
+
+    
